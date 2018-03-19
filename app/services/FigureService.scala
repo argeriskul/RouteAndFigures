@@ -43,7 +43,7 @@ class FigureService {
     if (rCrossS == 0) {
       // segments are parallel or overlap
       val rSquared = scalarProduct(r, r).floatValue()
-      // express vector s in terms of t - parametric view of r
+      // express vector s in terms of t - parametric view of second vector: (b1;b2)==p+r*t. See https://stackoverflow.com/a/565282/2956778
       // the begining of s
       val t0 = scalarProduct(qMinusP, r) / rSquared
       // the end of s

@@ -2,28 +2,28 @@ package models
 
 import play.api.libs.json.{Format, Json}
 
-case class Point(val x: Int, val y: Int) {}
+case class Point(x: Int, y: Int) {}
 
 object Point {
   implicit val jsonFormat: Format[Point] = Json.format[Point]
 }
 
-case class Figure(val vertexList: Seq[Point]) {
+case class Figure(vertexList: Seq[Point]) {
   def isConvex: Boolean = {
 
     // TODO calculate only once
     calculateConvex
   }
 
-  def isSameDirection(p1: Point, p2:Point, p3: Point, signum: Int): (Boolean,Int) = {
+  def isDifferentDirection(p1: Point, p2:Point, p3: Point, signum: Int): (Boolean,Int) = {
     val currentSignum = calculateCrossProductSign(p1,p2,p3)
     val firstNonZeroSignum = if (signum != 0) signum else currentSignum
 
-    (signum*currentSignum >= 0, firstNonZeroSignum)
+    (signum*currentSignum < 0, firstNonZeroSignum)
   }
 
   def calculateConvex: Boolean = {
-    if (vertexList.size < 3) {
+    if (vertexList.lengthCompare(3) < 0) {
       return false
     }
     // add 2 points from the beginning to the end to avoid handling special cases
@@ -31,9 +31,9 @@ case class Figure(val vertexList: Seq[Point]) {
 
     var signum = 0
     closedFigure.sliding(3).exists(triple => {
-      val result = isSameDirection(triple(0), triple(1), triple(2), signum)
+      val result = isDifferentDirection(triple(0), triple(1), triple(2), signum)
       signum = result._2
-      !result._1
+      result._1
     })
     // if signum is zero then all lines are on the single line
     signum != 0
