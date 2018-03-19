@@ -18,10 +18,4 @@ class FigureController  @Inject() (cc:ControllerComponents, service:FigureServic
     Created(  "Added "+figure)
   }
 
-  def addPoint: Action[Point] = Action (parse.json[Point]) { request =>
-    println(request.body)
-    val  point: Point = request.body
-    Created("Added point "+point)
-  }
-
 }

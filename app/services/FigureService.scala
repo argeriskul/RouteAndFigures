@@ -25,17 +25,6 @@ class FigureService {
     result
   }
 
-  /*
-    def isIntersect(route: Route, figure: Figure): Boolean = {
-      for (i <- 1 until route.checkpoints.size) {
-        // TODO re-factor to while and avoid return
-        if (isIntersect(route.checkpoints(i - 1), route.checkpoints(i), figure)) {
-          return true
-        }
-      }
-      false
-    }
-    */
   def isIntersect(route: Route, figure: Figure): Boolean = {
     route.checkpoints.sliding(2).exists(pair => isIntersect(pair(0), pair(1), figure))
   }
@@ -44,16 +33,7 @@ class FigureService {
   def isIntersect(p1: Point, p2: Point, figure: Figure): Boolean = {
     figure.vertexList.sliding(2).exists(pair => isSegmentsIntersect(p1,p2,pair(0), pair(1)))
   }
-/*
-  def isIntersect(p1: Point, p2: Point, figure: Figure): Boolean = {
-    for (i <- 1 until figure.vertexList.size) {
-      val b1 = figure.vertexList(i - 1)
-      val b2 = figure.vertexList(i)
-      if (isSegmentsIntersect(p1, p2, b1, b2)) {return true}
-    }
-    false
-  }
-*/
+
   // allow access from the current package because there are tests for this method
   private[services] def isSegmentsIntersect(p1: Point, p2: Point, b1: Point, b2: Point): Boolean = {
     val r = Point(p2.x - p1.x, p2.y - p1.y)

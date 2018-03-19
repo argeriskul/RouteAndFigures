@@ -62,16 +62,6 @@ class FigureServiceSpec extends Specification {
         service.isIntersect(Point(-1,0), Point(1,5), squareWithSide4) must beTrue
       }
 
-      /* dont' need since there are tests on lower model - segment intersection
-      "have single common point" in {
-        service.isIntersect(Point(1,1), Point(5,5), figure) must beTrue
-      }
-
-      "overlap with edge" in {
-        service.isIntersect(Point(-5,0), Point(5,0), figure) must beTrue
-      }
-      */
-
     }
 
     "return polygons which intersected by path" in {

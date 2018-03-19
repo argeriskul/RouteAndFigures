@@ -35,17 +35,6 @@ case class Figure(val vertexList: Seq[Point]) {
       signum = result._2
       !result._1
     })
-    /*
-    for (i <- 0 to closedFigure.size - 3) {
-      val currentSignum = calculateCrossProductSign(closedFigure(i), closedFigure(i + 1), closedFigure(i + 2))
-      if (signum == 0) {
-        signum = currentSignum
-      }
-
-      if ((signum * currentSignum) < 0) {
-        return false
-      }
-    }*/
     // if signum is zero then all lines are on the single line
     signum != 0
   }
